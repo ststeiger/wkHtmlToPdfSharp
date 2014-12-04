@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Legenden</title>
+
+    <style type="text/css" media="all">
+    
+        .bullet
+        {
+            width: 20px; height: 20px; 
+        }
+        
+        
+        .legendText
+        {
+            width: 150px;
+        }
+        
+        .legendValue
+        {
+            width: 50px;    
+            text-align: right;
+        }
+        
+        .legendText div
+        {
+            background-color: Red;
+            height: 1em;
+            overflow: hidden; 
+            padding-left: 0.25cm;
+            padding-right: 0.25cm;   
+        }
+        
+        .Color0 { background-color: #FFFFFF; }
+        .Color1 { background-color: #000000; }
+        .Color2 { background-color: #4C4A4C; }
+        .Color3 { background-color: #585858; }
+        .Color4 { background-color: #6E6E6E; }
+        .Color5 { background-color: #878787; }
+        .Color6 { background-color: #A0A0A0; }
+        .Color7 { background-color: #B9B9B9; }
+        .Color8 { background-color: #D2D2D2; }
+        .Color9 { background-color: #ECEAEC; }
+        .Color10 { background-color: #840204; }
+        .Color11 { background-color: #A40204; }
+        .Color12 { background-color: #C40204; }
+        .Color13 { background-color: #DC0204; }
+        .Color14 { background-color: #FC0204; }
+        .Color15 { background-color: #FC4644; }
+        .Color16 { background-color: #FC6A6C; }
+        .Color17 { background-color: #FC8284; }
+        .Color18 { background-color: #FCAAAC; }
+        .Color19 { background-color: #FCD2D4; }
+        .Color20 { background-color: #824600; }
+        .Color21 { background-color: #A15000; }
+        .Color22 { background-color: #BC5A04; }
+        .Color23 { background-color: #DF6416; }
+        .Color24 { background-color: #FF781E; }
+        .Color25 { background-color: #FF8C25; }
+        .Color26 { background-color: #FFA056; }
+        .Color27 { background-color: #FFB47F; }
+        .Color28 { background-color: #FFC8A9; }
+        .Color29 { background-color: #FCDED4; }
+        .Color30 { background-color: #825500; }
+        .Color31 { background-color: #A16400; }
+        .Color32 { background-color: #C47204; }
+        .Color33 { background-color: #DF8C00; }
+        .Color34 { background-color: #FF9D1E; }
+        .Color35 { background-color: #FFAF3A; }
+        .Color36 { background-color: #FFBE56; }
+        .Color37 { background-color: #FFCD7D; }
+        .Color38 { background-color: #FFDCA4; }
+        .Color39 { background-color: #FCF2CC; }
+        .Color40 { background-color: #828200; }
+        .Color41 { background-color: #A1A100; }
+        .Color42 { background-color: #C4C204; }
+        .Color43 { background-color: #DFDF00; }
+        .Color44 { background-color: #FFFF00; }
+        .Color45 { background-color: #FFFF2A; }
+        .Color46 { background-color: #FFFF53; }
+        .Color47 { background-color: #FFFF7D; }
+        .Color48 { background-color: #FFFFA6; }
+        .Color49 { background-color: #FCFED4; }
+        .Color50 { background-color: #5A6900; }
+        .Color51 { background-color: #649200; }
+        .Color52 { background-color: #7CBE04; }
+        .Color53 { background-color: #99DF0A; }
+        .Color54 { background-color: #A8FF0A; }
+        .Color55 { background-color: #B4FF32; }
+        .Color56 { background-color: #C0FF59; }
+        .Color57 { background-color: #CCFF8A; }
+        .Color58 { background-color: #D8FFA8; }
+        .Color59 { background-color: #E4FECC; }
+        .Color60 { background-color: #006400; }
+        .Color61 { background-color: #009200; }
+        .Color62 { background-color: #04C204; }
+        .Color63 { background-color: #00DF00; }
+        .Color64 { background-color: #00FF00; }
+        .Color65 { background-color: #37FF3C; }
+        .Color66 { background-color: #6EFF73; }
+        .Color67 { background-color: #8CFF91; }
+        .Color68 { background-color: #B4FFB9; }
+        .Color69 { background-color: #DCFEDC; }
+        .Color70 { background-color: #006482; }
+        .Color71 { background-color: #00929C; }
+        .Color72 { background-color: #04C2C4; }
+        .Color73 { background-color: #00DFDF; }
+        .Color74 { background-color: #00FFFF; }
+        .Color75 { background-color: #2FFFFF; }
+        .Color76 { background-color: #5DFFFF; }
+        .Color77 { background-color: #87FFFF; }
+        .Color78 { background-color: #A0FFFF; }
+        .Color79 { background-color: #CCFEFC; }
+        .Color80 { background-color: #040284; }
+        .Color81 { background-color: #0402A4; }
+        .Color82 { background-color: #0402C4; }
+        .Color83 { background-color: #0402DC; }
+        .Color84 { background-color: #0402FC; }
+        .Color85 { background-color: #2C2AFC; }
+        .Color86 { background-color: #5452F4; }
+        .Color87 { background-color: #8482FC; }
+        .Color88 { background-color: #B4B2FC; }
+        .Color89 { background-color: #DCDAFC; }
+        .Color90 { background-color: #501E82; }
+        .Color91 { background-color: #6026A1; }
+        .Color92 { background-color: #742EC4; }
+        .Color93 { background-color: #8232DF; }
+        .Color94 { background-color: #9132FF; }
+        .Color95 { background-color: #9E50FF; }
+        .Color96 { background-color: #AF69FF; }
+        .Color97 { background-color: #C08CFF; }
+        .Color98 { background-color: #D2B0FF; }
+        .Color99 { background-color: #E4D2FC; }
+        .Color100 { background-color: #840284; }
+        .Color101 { background-color: #9C029C; }
+        .Color102 { background-color: #C402C4; }
+        .Color103 { background-color: #DC02DC; }
+        .Color104 { background-color: #FC02FC; }
+        .Color105 { background-color: #FC2AFC; }
+        .Color106 { background-color: #FC52FC; }
+        .Color107 { background-color: #FC7EFC; }
+        .Color108 { background-color: #FCA6FC; }
+        .Color109 { background-color: #FCD2FC; }
+        .Color110 { background-color: #820050; }
+        .Color111 { background-color: #A10058; }
+        .Color112 { background-color: #BC025C; }
+        .Color113 { background-color: #DF0068; }
+        .Color114 { background-color: #FF0072; }
+        .Color115 { background-color: #FF2981; }
+        .Color116 { background-color: #FF5291; }
+        .Color117 { background-color: #FF7AAB; }
+        .Color118 { background-color: #FFA3C4; }
+        .Color119 { background-color: #FCCADC; }
+
+    </style>
+
+
+</head>
+<body>
+
+<table>
+    <tr>
+        <td class="bullet Color119"></td>
+        <td class="legendText">
+            <div class"sizelimit">
+                1.1 HNF xyz
+            </div>
+
+        </td>
+        <td class="legendValue">
+            1234
+        </td>
+        <td>
+            m&sup2;
+        </td>
+    </tr>
+
+    <tr>
+        <td class="bullet Color118"></td>
+        <td class="legendText">
+            <div class"sizelimit">
+                fsadflsaf jdsfj ldsjafla jflajsdfasldfj sfdjasdlf
+            </div>
+        </td>
+        <td class="legendValue">
+            5678
+        </td>
+        <td>
+            <span style="padding-right: 3px;">m</span>&sup2;
+        </td>
+    </tr>
+
+</table>
+
+</body>
+</html>

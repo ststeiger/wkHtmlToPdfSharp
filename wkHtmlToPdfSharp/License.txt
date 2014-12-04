@@ -1,0 +1,38 @@
+﻿
+Copyright 2014 Stefan Steiger
+Licensed under Creative-Commons Attribution 3.0 License
+http://creativecommons.org/licenses/by/3.0/
+
+
+Changes made:
+- Moved Synchronized into main Assembly
+- Added files for .NET 2.0 support in Net20 (remove if you build in .NET-Version with LINQ etc.)
+- Renamed namespace Pechkin to wkHtmlToPdfSharp
+- Used wkhtmltox32*.dll from https://github.com/pruiz/WkHtmlToXSharp because they are statically linked
+- Moved wkhtmltox32*.dll into embedded resources and added extraction to loader
+- Added shared library loader (DllLoader.cs). Web-application in IIS must load the library before it can be used.
+
+
+Original work Copyright 2012 by Slava Kolobaev and made available under the terms of the Creative Commons Attribution 3.0 license 
+http://creativecommons.org/licenses/by/3.0/
+
+Slava Kolobaev does not in any way endorse this product.
+
+Original work taken from 
+https://github.com/gmanny/Pechkin
+
+
+
+
+You are free to:
+
+Share — copy and redistribute the material in any medium or format
+Adapt — remix, transform, and build upon the material
+for any purpose, even commercially.
+The licensor cannot revoke these freedoms as long as you follow the license terms.
+Under the following terms:
+
+Attribution — 
+You must give appropriate credit, provide a link to the license, and indicate if changes were made. 
+You may do so in any reasonable manner, but not in any way that suggests the licensor endorses you or your use.
+No additional restrictions — You may not apply legal terms or technological measures that legally restrict others from doing anything the license permits.
