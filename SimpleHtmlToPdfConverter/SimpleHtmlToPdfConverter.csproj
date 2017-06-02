@@ -103,6 +103,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="EmbeddedSVG.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="info\FullLocationInfo.sql" />
     <Content Include="info\FieldInfo.sql" />
     <Content Include="logos\gmbhco_lect.png" />

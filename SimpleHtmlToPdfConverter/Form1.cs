@@ -245,7 +245,20 @@ namespace SimpleHtmlToPdfConverter
 
         private void btnConvert_Click(object sender, EventArgs e)
         {
-            this.txtHtml.Text = System.IO.File.ReadAllText(GetTemplateFile(), System.Text.Encoding.Default);
+            //this.txtHtml.Text = System.IO.File.ReadAllText(GetTemplateFile(), System.Text.Encoding.Default);
+
+            string filenName = @"EmbeddedSVG.html";
+            filenName = @"D:\Stefan.Steiger\Documents\Visual Studio 2013\Projects\SVG\COR\0001_GB01_OG01_0000.svg";
+            // D:\Stefan.Steiger\Documents\Visual Studio 2013\Projects\SVG\COR\0001_GB01_OG01_0000.svg {Width = 1297.0 Height = 803.0}
+
+
+            // this.txtHtml.Text = System.IO.File.ReadAllText(filenName, System.Text.Encoding.Default);
+            this.txtHtml.Text = System.IO.File.ReadAllText(filenName, System.Text.Encoding.UTF8);
+            System.Xml.XmlDocument doc = new System.Xml.XmlDocument();
+            doc.LoadXml(this.txtHtml.Text);
+
+
+
 
             byte[] buf = Html2Pdf(this.txtHtml.Text);
             if (buf == null)
@@ -292,8 +305,12 @@ namespace SimpleHtmlToPdfConverter
 
 
 
+            // D:\Stefan.Steiger\Documents\Visual Studio 2013\Projects\SVG\COR\0001_GB01_OG01_0000.svg {Width = 1297.0 Height = 803.0}
+
+
+
             SynchronizedwkHtmlToPdfSharp sc = new SynchronizedwkHtmlToPdfSharp(new GlobalConfig()
-                .SetMargins( new System.Drawing.Printing.Margins(0, 0, 0, 0)) 
+                .SetMargins(new System.Drawing.Printing.Margins(0, 0, 0, 0))
                 .SetDocumentTitle("Legende")
                 .SetCopyCount(1)
                 //.SetImageQuality(50)
@@ -307,7 +324,13 @@ namespace SimpleHtmlToPdfConverter
                 //.SetPaperSize(System.Drawing.Printing.PaperKind.Letter)
                 //.SetPaperSize(250, 200)
                 //.SetPaperSize(System.Drawing.Printing.PaperKind.A4)
-                .SetPaperSize(new System.Drawing.Printing.PaperSize("lala", 800, 625))
+
+                // Width/Height: Gets or sets the width/height of the paper, in hundredths of an inch.
+                // 1 inch = 2.54cm = 25.4mm
+                // 1/100 inch = 0.0254cm = 0.254mm
+                //.SetPaperSize(new System.Drawing.Printing.PaperSize("lala", 800, 625))
+                //.SetPaperSize(new System.Drawing.Printing.PaperSize("SvgSize", 1297 + 37, 803 + 37))
+                .SetPaperSize(new System.Drawing.Printing.PaperSize("SvgSize", 1297, 803))
                 //.SetPaperSize(new System.Drawing.Printing.PaperSize("lala", iDimX, iDimY))
             );
 
