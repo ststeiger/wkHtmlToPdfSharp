@@ -62,6 +62,7 @@
   <ItemGroup>
     <Compile Include="cDraw.cs" />
     <Compile Include="cLegende.cs" />
+    <Compile Include="SimpleHelper.cs" />
     <Compile Include="UnitConversion.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>

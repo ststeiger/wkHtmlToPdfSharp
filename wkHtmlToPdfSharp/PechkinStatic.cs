@@ -118,9 +118,11 @@ namespace wkHtmlToPdfSharp
             }
 
             wkHtmlToPdfSharpBindings.wkhtmltopdf_deinit();
-            if(_handleSO != System.IntPtr.Zero)
+            if (_handleSO != System.IntPtr.Zero)
+            { 
                 SharedLibrary.Unload(_handleSO);
-
+                _handleSO = System.IntPtr.Zero;
+            }
             _hackObj = null;
         }
 

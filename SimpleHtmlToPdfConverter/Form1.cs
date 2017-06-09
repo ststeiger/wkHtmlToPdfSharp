@@ -1,5 +1,4 @@
 ﻿
-using System;
 using System.Windows.Forms;
 
 using wkHtmlToPdfSharp;
@@ -64,11 +63,11 @@ namespace SimpleHtmlToPdfConverter
             string strLogoData = SimpleHtmlToPdfConverter.Draw.ImageAsDataString(logofile, System.Drawing.Imaging.ImageFormat.Png);
             string stra = string.Format("<img alt=\"{0}\" width=\"25%\" src=\"{1}\" />", "Logo", strLogoData);
             string num = leg.FormatNumber(123.456);
-            Console.WriteLine(num);
+            System.Console.WriteLine(num);
 
 
             string Heading = string.Format("{0} - {1} - {2} - {3}", leg.Location, leg.Premise, leg.Floor, leg.Title);
-            Console.WriteLine(Heading);
+            System.Console.WriteLine(Heading);
             string date = leg.FormatDateTime("dd-MMM-yyyy");
 
 
@@ -172,16 +171,16 @@ namespace SimpleHtmlToPdfConverter
 
                 string strAP_LEG_ForeColor = System.Convert.ToString(dr["AP_LEG_ForeColor"]);
                 if (!string.IsNullOrEmpty(strAP_LEG_ForeColor))
-                    Int32.TryParse(strAP_LEG_ForeColor, out AP_LEG_ForeColor);
+                    int.TryParse(strAP_LEG_ForeColor, out AP_LEG_ForeColor);
 
 
                 if (string.IsNullOrEmpty(strFgColor))
                     strFgColor = "#000000";
 
-                if (StringComparer.Ordinal.Equals(strBgColor, "#"))
+                if (System.StringComparer.Ordinal.Equals(strBgColor, "#"))
                     strBgColor = "#000000";
 
-                if (StringComparer.Ordinal.Equals(strLineColor, "#"))
+                if (System.StringComparer.Ordinal.Equals(strLineColor, "#"))
                     strLineColor = "#000000";
 
 
@@ -243,19 +242,150 @@ namespace SimpleHtmlToPdfConverter
         }
 
 
-        private void btnConvert_Click(object sender, EventArgs e)
+
+        public static void RemoveWoutWareCommentNodes(System.Xml.XmlDocument doc)
+        {
+            System.Xml.XmlNamespaceManager nsmgr = SimpleHelper.GetDefaultNamespace(doc);
+
+            System.Xml.XmlNodeList EvalVersionTags = doc
+                .SelectNodes("//dft:text[contains(translate(text(), 'ABCDEFGHIJKLMNOPQRSTUVWXYZÄÖÜÉÈÊÀÁÂÒÓÔÙÚÛÇÅÏÕÑŒ', 'abcdefghijklmnopqrstuvwxyzäöüéèêàáâòóôùúûçåïõñœ'),'aspose')]", nsmgr);
+
+
+            // System.Xml.XmlNode xnProd = doc.SelectSingleNode("//comment()[contains(., 'Produced by application')]", nsmgr);
+            // System.Xml.XmlNode xnWout = doc.SelectSingleNode("//comment()[contains(., 'woutware.com')]", nsmgr);
+
+            System.Xml.XmlNode xnProd = doc
+                .SelectSingleNode("//comment()[contains(translate(., 'ABCDEFGHIJKLMNOPQRSTUVWXYZÄÖÜÉÈÊÀÁÂÒÓÔÙÚÛÇÅÏÕÑŒ', 'abcdefghijklmnopqrstuvwxyzäöüéèêàáâòóôùúûçåïõñœ'),'produced by application')]", nsmgr);
+
+            System.Xml.XmlNode xnWout = doc
+                .SelectSingleNode("//comment()[contains(translate(., 'ABCDEFGHIJKLMNOPQRSTUVWXYZÄÖÜÉÈÊÀÁÂÒÓÔÙÚÛÇÅÏÕÑŒ', 'abcdefghijklmnopqrstuvwxyzäöüéèêàáâòóôùúûçåïõñœ'),'woutware.com')]", nsmgr);
+
+            if (xnProd != null)
+            {
+                System.Console.WriteLine(xnProd.InnerText);
+                xnProd.ParentNode.RemoveChild(xnProd);
+
+            }
+
+            if (xnWout != null)
+            {
+                System.Console.WriteLine(xnWout.InnerText);
+                xnWout.ParentNode.RemoveChild(xnWout);
+            }
+
+            using (System.IO.FileStream fs = new System.IO.FileStream(@"d:\Test.xml", System.IO.FileMode.Create
+                , System.IO.FileAccess.Write, System.IO.FileShare.None))
+            {
+                SimpleHelper.SaveDocument(doc, fs, true);
+            }
+         
+        }
+
+
+        // https://tex.stackexchange.com/questions/8260/what-are-the-various-units-ex-em-in-pt-bp-dd-pc-expressed-in-mm
+        public enum unit
+        {
+            px, cm, mm, pt, @in, pc // pc = pica
+            ,em, ex
+            ,percent
+
+            // https://www.w3.org/Style/Examples/007/units.en.html
+            // https://www.w3schools.com/cssref/css_units.asp
+            // em	Relative to the font-size of the element (2em means 2 times the size of the current font) Try it
+            // ex	Relative to the x-height of the current font (rarely used) Try it
+            // ch	Relative to width of the "0" (zero)
+            // rem	Relative to font-size of the root element
+            // vw	Relative to 1% of the width of the viewport
+            // vh	Relative to 1% of the height of the viewport
+            // vmin	Relative to 1% of viewport's smaller dimension
+            // vmax	Relative to 1% of viewport's larger dimension
+        }
+
+        // * Pixels (px) are relative to the viewing device. 
+        // For low-dpi devices, 1px is one device pixel (dot) of the display. 
+        // For printers and high resolution screens 1px implies multiple device pixels.
+
+        // 1 point = 0.352778 mm
+        // 1 pica = 4.2333 mm
+        // 1 inch = 25.4 mm
+
+
+
+
+        // All coordinates and lengths in SVG can be specified with or without a unit identifier.
+        public static void parseFloat(string input)
+        {
+            if (input == null)
+                throw new System.ArgumentNullException("input");
+            input = input.Trim();
+            if (input == string.Empty)
+                throw new System.ArgumentException("input");
+
+            input = input.ToLowerInvariant();
+
+            if (input.EndsWith("px"))
+            { }
+
+            if (input.EndsWith("mm"))
+            { }
+
+            if (input.EndsWith("cm"))
+            { }
+
+            if (input.EndsWith("pt")) // 1 inch = 72 points
+            { }
+
+            if (input.EndsWith("pc")) // 1 pica = 12 points =appx. 1/6 inch
+            { }
+
+            if (input.EndsWith("in")) // 1 inch = 72 points
+            { }
+
+
+            float f = float.Parse(input, System.Globalization.CultureInfo.InvariantCulture);
+
+        }
+
+
+
+        private void btnConvert_Click(object sender, System.EventArgs e)
         {
             //this.txtHtml.Text = System.IO.File.ReadAllText(GetTemplateFile(), System.Text.Encoding.Default);
 
             string filenName = @"EmbeddedSVG.html";
             filenName = @"D:\Stefan.Steiger\Documents\Visual Studio 2013\Projects\SVG\COR\0001_GB01_OG01_0000.svg";
+            filenName = @"D:\Stefan.Steiger\Documents\Visual Studio 2013\Projects\SVG\COR\0001_GB01_OG14_0000_Aperture.svg";
             // D:\Stefan.Steiger\Documents\Visual Studio 2013\Projects\SVG\COR\0001_GB01_OG01_0000.svg {Width = 1297.0 Height = 803.0}
+
+            filenName = @"D:\stefan.steiger\Downloads\file.htm";
+            // <div id="SVG" style="display: block; width: 1324px; height: 967px; 
 
 
             // this.txtHtml.Text = System.IO.File.ReadAllText(filenName, System.Text.Encoding.Default);
             this.txtHtml.Text = System.IO.File.ReadAllText(filenName, System.Text.Encoding.UTF8);
-            System.Xml.XmlDocument doc = new System.Xml.XmlDocument();
-            doc.LoadXml(this.txtHtml.Text);
+            //System.Xml.XmlDocument doc = new System.Xml.XmlDocument();
+            //doc.XmlResolver = null; // https://stackoverflow.com/questions/4445348/net-prevent-xmldocument-loadxml-from-retrieving-dtd
+            //doc.LoadXml(this.txtHtml.Text);
+
+
+            // <?xml version="1.0"?>
+            //<!--Produced by application: DwgToSvgConverter 2015.4.2.1728-->
+            //<!--Library: www.woutware.com WW.Cad 4.0.36.35-->
+            //<!--Creation date: 04/02/2015 22:39:46-->
+
+            //System.Xml.XmlAttribute attWidth = doc.DocumentElement.Attributes["width"];
+            //System.Xml.XmlAttribute attHeight = doc.DocumentElement.Attributes["height"];
+            //System.Xml.XmlAttribute attViewBox = doc.DocumentElement.Attributes["viewBox"];
+
+            //string width = attWidth.Value;
+            //string height = attHeight.Value;
+            //string viewBox = attViewBox.Value;
+
+            //System.Console.WriteLine(width);
+            //System.Console.WriteLine(height);
+            //System.Console.WriteLine(viewBox);
+            //string[] viewBoxValues = viewBox.Split(' ');
+            //System.Console.WriteLine(viewBoxValues);
 
 
 
@@ -283,9 +413,6 @@ namespace SimpleHtmlToPdfConverter
 
         public byte[] Html2Pdf(string strHTML)
         {
-            //wkHtmlToPdfSharpStatic.InitLib(false);
-
-            // pc.FinishAction("Library initialized");
 
             string strDimX = this.txtDimX.Text;
             string strDimY = this.txtDimY.Text;
@@ -303,11 +430,14 @@ namespace SimpleHtmlToPdfConverter
             else
                 this.txtDimY.Text = iDimY.ToString();
 
+            return Html2Pdf(strHTML, iDimX, iDimY);
+        }
 
 
-            // D:\Stefan.Steiger\Documents\Visual Studio 2013\Projects\SVG\COR\0001_GB01_OG01_0000.svg {Width = 1297.0 Height = 803.0}
-
-
+        public byte[] Html2Pdf(string strHTML, int width, int height)
+        {
+            //wkHtmlToPdfSharpStatic.InitLib(false);
+            // pc.FinishAction("Library initialized");
 
             SynchronizedwkHtmlToPdfSharp sc = new SynchronizedwkHtmlToPdfSharp(new GlobalConfig()
                 .SetMargins(new System.Drawing.Printing.Margins(0, 0, 0, 0))
@@ -330,7 +460,20 @@ namespace SimpleHtmlToPdfConverter
                 // 1/100 inch = 0.0254cm = 0.254mm
                 //.SetPaperSize(new System.Drawing.Printing.PaperSize("lala", 800, 625))
                 //.SetPaperSize(new System.Drawing.Printing.PaperSize("SvgSize", 1297 + 37, 803 + 37))
-                .SetPaperSize(new System.Drawing.Printing.PaperSize("SvgSize", 1297, 803))
+                //.SetPaperSize(new System.Drawing.Printing.PaperSize("SvgSize", 1297, 803))
+                
+                
+                // Pixel
+                .SetPaperSize(new System.Drawing.Printing.PaperSize("SvgSize", width + 37, height + 37))
+                //.SetPaperSize(new System.Drawing.Printing.PaperSize("SvgSize", 1170, 827))
+
+
+                // <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="21cm" height="29.7cm" viewBox="0 0 2098 2969.3" version="1.1">
+
+                // 29.7 cm = 11.69291
+                // 21 cm = 8.26772
+
+
                 //.SetPaperSize(new System.Drawing.Printing.PaperSize("lala", iDimX, iDimY))
             );
 
