@@ -99,7 +99,7 @@ namespace wkHtmlToPdfSharp
             width = height;
             height = temp;
 
-            _paperWidth = (width / 100.0).ToString("0.##", CultureInfo.InvariantCulture) +"in";
+            _paperWidth = (width / 100.0).ToString("0.##", CultureInfo.InvariantCulture) + "in";
             _paperHeight = (height / 100.0).ToString("0.##", CultureInfo.InvariantCulture) +"in";
 
             return this;
@@ -433,6 +433,7 @@ namespace wkHtmlToPdfSharp
             }
         }
 
+
         internal IntPtr CreateGlobalConfig()
         {
             IntPtr config = wkHtmlToPdfSharpStatic.CreateGlobalSetting();
@@ -441,5 +442,9 @@ namespace wkHtmlToPdfSharp
 
             return config;
         }
+
+
     }
+
+
 }
